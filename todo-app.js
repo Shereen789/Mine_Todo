@@ -40,10 +40,6 @@ function deleteTask(taskId) {
   } else {
     alert("DB not Updated");
   }
-
-  // call a web api to update the database on the server
-
-  // update the DOM
   render();
   console.log(taskList);
 }
@@ -69,14 +65,7 @@ function addTask(t) {
 }
 
 function init() {
-  console.log("init called");
-
-  // call a web api to retrieve the task list
-  // write a function to send a api request
-  // get the JSON
-  // assign it to taskList
-  // render
-
+  console.log("init called")
   task = new Task("welcome task", "2020-05-22", false);
   addTask(task);
   console.log(task);
