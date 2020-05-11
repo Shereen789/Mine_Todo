@@ -1,5 +1,10 @@
 from flask import Flask, jsonify, json
+from flask_cors import CORS, cross_origin
+import os
+import json
+
 app = Flask(__name__)
+CORS(app)
 
 my_dataBase = {}
 @app.route('/delete/<data>')

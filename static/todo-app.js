@@ -35,11 +35,6 @@ function deleteTask(taskId) {
     if (t.taskId != taskId) return t;
   });
   const res = updateDatabase("del", taskId);
-  if (res == "True") {
-    alert("DB updated");
-  } else {
-    alert("DB not Updated");
-  }
   render();
   console.log(taskList);
 }
@@ -54,11 +49,6 @@ function createTask() {
 function addTask(t) {
   taskList.push(t);
   const res = updateDatabase("ad", t);
-  if (res == "True") {
-    alert("DB updated");
-  } else {
-    alert("DB not Updated");
-  }
   // call a web api to update the database on the server
   render();
   console.log(taskList);

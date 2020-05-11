@@ -1,20 +1,50 @@
 function Task(props) {
     return <li > {
-        props.name
-    }, {
-        props.dueDate.toLocaleTimeString()
-    } < /li>
-}
+            props.name
+        }, {
+            props.dueDate == null ? "Invalid Date" : props.dueDate.toLocaleString()
+        }
 
+        <
+        input type = "submit"
+    value = "Delete Task"
+    onClick = {
+        () => {
+            props.onDeleteTask(props.id)
+        }
+    }
+    />
+
+
+    <
+    /li>
+}
 class TodoList extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
                 list: props.list
             };
-
+            this.handleDeleteTask = this.handleDeleteTask.bind(this);
             this.handleAddTask = this.handleAddTask.bind(this);
         }
+
+
+        handleDeleteTask(id) {
+            console.log("Delete task clicked", id);
+            let list = this.state.list;
+            this.state.list = this.state.list.filter(task => {
+                if (task.id != id)
+                    return task;
+
+
+            })
+            this.setState({
+                list: this.state.list
+            })
+        }
+
+
         handleAddTask(task) {
             console.log("add task clicked");
             this.state.list.push(task);
@@ -23,8 +53,7 @@ class TodoList extends React.Component {
             })
         }
         render() {
-            return ( <
-                div >
+            return ( < div >
                 <
                 h1 > TODO List < /h1> <
                 ol > {
@@ -39,6 +68,12 @@ class TodoList extends React.Component {
                         dueDate = {
                             t.dueDate
                         }
+                        onDeleteTask = {
+                            this.handleDeleteTask
+                        }
+                        id = {
+                            t.id
+                        }
                         />)
                     } <
                     /ol> <
@@ -51,16 +86,18 @@ class TodoList extends React.Component {
             }
         }
 
+
         class TaskNameForm extends React.Component {
             constructor(props) {
                 super(props);
                 this.state = {
-                    value: ''
+                    value: '',
+                    'date': null
                 };
-
                 this.handleChange = this.handleChange.bind(this);
                 this.handleSubmit = this.handleSubmit.bind(this);
             }
+
 
             handleSubmit(event) {
                 const taskList = this.props.taskList;
@@ -69,11 +106,12 @@ class TodoList extends React.Component {
                 const task = {
                     id: Date.now(),
                     name: this.state.value,
-                    dueDate: new Date()
+                    dueDate: this.state.date
                 };
                 // add the task object to the task list
                 this.props.onAddTask(task);
             }
+
 
             handleChange(event) {
                 // code to set the state of the component
@@ -82,6 +120,11 @@ class TodoList extends React.Component {
                 });
             }
 
+
+
+
+
+
             render() {
                 return ( <
                     form onSubmit = {
@@ -89,9 +132,6 @@ class TodoList extends React.Component {
                     } >
                     <
                     input type = "text"
-                    value = {
-                        this.state.value
-                    }
                     onChange = {
                         this.handleChange
                     }
@@ -99,10 +139,22 @@ class TodoList extends React.Component {
                     input type = "submit"
                     value = "Add Task" / >
                     <
+                    input type = "date"
+                    onChange = {
+                        () => {
+                            this.setState({
+                                date: new Date(event.target.value)
+                            })
+                        }
+                    }
+                    />
+
+                    <
                     /form>
                 );
             }
         }
+
 
         ReactDOM.render( <
             TodoList list = {
