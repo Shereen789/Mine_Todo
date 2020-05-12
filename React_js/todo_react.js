@@ -94,19 +94,8 @@ class TaskNameForm extends React.Component {
         return ( <form onSubmit = {
                 this.handleSubmit}>
             <input type = "text" onChange = {this.handleChange}/>
-            <input type = "submit"
-            value = "Add Task"/>
-            <
-            input type = "date"
-            onChange = {
-                () => {
-                    this.setState({
-                        date: new Date(event.target.value)
-                    })
-                }
-            }
-            />
-
+            <input type = "date" onChange = {() => {this.setState({date: new Date(event.target.value)})}}/>
+            <input type = "submit"value = "Add to my list"/>
             </form>
         );
     }
