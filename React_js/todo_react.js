@@ -4,9 +4,9 @@ const inputStyle = {color:'black'};
 const button = {color:'black',background:'yellow'};
 
 function Task(props) {
-    return <li style= {style}>{props.name},{props.dueDate == null ? "Invalid Date" : props.dueDate.toLocaleString()}
-    <input type = "submit" style={button} value = "Delete Task"
-    onClick = {() => {props.onDeleteTask(props.id)}}/>
+    console.log(props.dueDate.toLocaleString())
+    return <li style= {style}>{props.name},{props.dueDate == null ? "Invalid Date" : props.dueDate.toLocaleString().slice(0,9)}
+    <input type = "submit" style={button} value = "Delete Task"onClick = {() => {props.onDeleteTask(props.id)}}/>
     </li>
 }
 class TodoList extends React.Component {
@@ -15,13 +15,12 @@ class TodoList extends React.Component {
         this.state = {
             list: props.list
         };
-        this.handleDeleteTask = this.handleDeleteTask.bind(this);
-        this.handleAddTask = this.handleAddTask.bind(this);
+        this.deletionHandling = this.deletionHandling.bind(this);
+        this.AdditionHandling = this.AdditionHandling.bind(this);
     }
 
 
-    handleDeleteTask(id) {
-        console.log("Delete task clicked", id);
+    deletionHandling(id) {
         let list = this.state.list;
         this.state.list = this.state.list.filter(task => {
             if (task.id != id)
@@ -35,7 +34,7 @@ class TodoList extends React.Component {
     }
 
 
-    handleAddTask(task) {
+    AdditionHandling(task) {
         this.state.list.push(task);
         this.setState({
             list: this.state.list
@@ -45,9 +44,9 @@ class TodoList extends React.Component {
         return ( <div>
         <h1 style={headStyle}> Ira's TODO List </h1>
         <ol> {this.state.list.map((t) =>
-        <Task key = {t.id} name = {t.name} dueDate = {t.dueDate} onDeleteTask = {this.handleDeleteTask} id = {t.id}/>)
+        <Task key = {t.id} name = {t.name} dueDate = {t.dueDate} onDeleteTask = {this.deletionHandling} id = {t.id}/>)
         }
-        </ol> <TaskNameForm onAddTask = {this.handleAddTask}/>
+        </ol> <TaskNameForm onAddTask = {this.AdditionHandling}/>
         </div>
         );
     }
