@@ -1,15 +1,13 @@
+const style = {color: 'blue',size:40};
+const headStyle = {color:'brown' ,weight:'bold',size:50};
+const inputStyle = {color:'black'};
+const button = {color:'black',background:'yellow'};
+
 function Task(props) {
-    return <li> {
-        props.name}, {
-        props.dueDate == null ? "Invalid Date" : props.dueDate.toLocaleString()
-    } < input type = "submit"
-    value = "Delete Task"
-    onClick = {
-        () => {
-            props.onDeleteTask(props.id)
-        }
-    }
-    /></li>
+    return <li style= {style}>{props.name},{props.dueDate == null ? "Invalid Date" : props.dueDate.toLocaleString()}
+    <input type = "submit" style={button} value = "Delete Task"
+    onClick = {() => {props.onDeleteTask(props.id)}}/>
+    </li>
 }
 class TodoList extends React.Component {
     constructor(props) {
@@ -38,7 +36,6 @@ class TodoList extends React.Component {
 
 
     handleAddTask(task) {
-        console.log("add task clicked");
         this.state.list.push(task);
         this.setState({
             list: this.state.list
@@ -46,7 +43,7 @@ class TodoList extends React.Component {
     }
     render() {
         return ( <div>
-        <h1> Ira's TODO List </h1>
+        <h1 style={headStyle}> Ira's TODO List </h1>
         <ol> {this.state.list.map((t) =>
         <Task key = {t.id} name = {t.name} dueDate = {t.dueDate} onDeleteTask = {this.handleDeleteTask} id = {t.id}/>)
         }
@@ -93,9 +90,9 @@ class TaskNameForm extends React.Component {
     render() {
         return ( <form onSubmit = {
                 this.handleSubmit}>
-            <input type = "text" onChange = {this.handleChange}/>
-            <input type = "date" onChange = {() => {this.setState({date: new Date(event.target.value)})}}/>
-            <input type = "submit"value = "Add to my list"/>
+            <input style={inputStyle} type = "text" onChange = {this.handleChange}/>
+            <input style={inputStyle} type = "date" onChange = {() => {this.setState({date: new Date(event.target.value)})}}/>
+            <input style={inputStyle} type = "submit"value = "Add to my list"/>
             </form>
         );
     }
